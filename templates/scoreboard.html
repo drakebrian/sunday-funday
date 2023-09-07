@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Scoreboard{% endblock %} 
+{% block content %}
+
+<h1>{{ league.name }}&mdash;Week {{ week }}</h1>
+<ul>
+	{% for matchup in matchups %}
+		<li>
+			{% for team in matchup.teams.team %}
+
+				<h2>{{ team.name }}</h2>
+				<h3>{{ team.managers.manager.nickname }}</h3>
+
+				<img src="{{ team.team_logos.team_logo.url }}">
+
+			{% endfor %}
+		</li>
+	{% endfor %}
+</ul>
+
+{% endblock %}

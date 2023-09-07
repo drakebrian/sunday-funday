@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}League Setup{% endblock %} 
+{% block content %}
+
+<h2>Select Your League</h2>
+<ul>
+	{% for league in leagues %}
+		<li>
+			<a href="/scoreboard?league={{ league.id }}">
+				{{ league }}
+			</a>
+		</li>
+	{% endfor %}
+</ul>
+
+{% endblock %}
