@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500&display=swap');
+* {box-sizing: border-box;}
+html, body {
+	font-family: 'Nunito', sans-serif;
+	background: #eee;
+}
+
+ul {list-style-type: none; margin: 0; padding: 0;}
+
+
+h1 {
+	font-size: 22px;
+	text-align: center;
+}
+h2 {
+	font-size: 18px; font-weight: 500;
+	margin: 4px 0;
+}
+h3 {
+	font-size: 14px; font-weight: 400;
+	margin: 0;
+	color: #666;
+}
+
+
+ul.scoreboard {
+	width: 100%;
+}
+
+ul.scoreboard li {
+	width: 100%;
+}
+
+ul.scoreboard li>div {
+/*	width: calc(50% - 25px);*/
+	width: 50%;
+	float: left;
+	padding: 5px 0;
+	display: inline-block;
+/*	border-bottom: 1px solid #888;*/
+	position: relative;
+	margin: 10px 0 0 0;
+/*	background: #fff;
+	border-radius: 10px;*/
+	border-top: 15px solid #ccc;
+
+}
+
+ul.scoreboard li>div span.probability-text {
+	position: absolute;
+	top: -16px; right: 2px;
+	font-size: 13px; font-weight: 500;
+	color: #444;
+	z-index: 2;
+/*	line-height: 15px;*/
+}
+ul.scoreboard li>div:first-of-type span.probability-text {
+	right: auto; left: 5px;
+}
+
+ul.scoreboard li>div span.probability {
+	background: #00a053;
+	position: absolute;
+	top: -15px;
+	height: 15px;
+	width: 10%;
+	left: 0;
+	z-index: 1;
+	transition: .2s width ease;
+}
+ul.scoreboard li>div:first-of-type span.probability {right: 0; left: auto; border-right: 1px solid #11111177;}
+
+
+/*ul.scoreboard li>div:first-of-type {
+	margin-right: 50px;
+}*/
+
+ul.scoreboard li>div:first-of-type div.team-secondary,
+ul.scoreboard li>div:first-of-type div.team-primary {float: right; text-align: right;}
+
+div.team-primary {
+	float: left;
+	width: 135px;
+	padding: 5px;
+	margin: 0 15px;
+	text-align: left;
+/*	border: 1px solid red;*/
+}
+div.team-primary h2 {margin-bottom: 0;}
+
+
+div.team-secondary {
+	float: left;
+}
+
+
+img.team-logo {
+	height: 50px; width: auto;
+	border-radius: 50%;
+	margin: 0 5px;
+	border: 1px solid #333;
+	float: right;
+}
+ul.scoreboard li>div:first-of-type img.team-logo {float: left;}
+
+/*ul.scoreboard li div:first-of-type {border-right: 1px solid red;}*/
+ul.scoreboard li>div:first-of-type::after {
+	content: 'vs';
+	display: block;
+	width: 30px; height: 50px;
+	text-align: center;
+	position: absolute;
+	right: -15px;
+	top: 25px;
+	font-weight: 500;
+}
+
+div.col1 {
+	width: 50%;
+}
+
+

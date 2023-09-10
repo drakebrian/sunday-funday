@@ -1,37 +1,45 @@
 from yahoofantasy import Context, League
 from flask import Flask, redirect, render_template, request, url_for
+import yahoofantasy.util.persistence as persistence
 # from yahoofantasy.api.games import get_game_id, _find_game_id
 
-app = Flask(__name__)
-ctx = Context()
+app = Flask(__name__, static_url_path='', static_folder='static')
 
 YEAR = 2023
 SPORT = 'nfl'
+RETAINED_KEYS = ["auth"]
 
 @app.route('/setup')
 def league_select():
+    ctx = Context()
     leagues = ctx.get_leagues(SPORT, YEAR)
 
     return render_template('setup.html', leagues=leagues)
 
 @app.route('/scoreboard')
 def scoreboard():
+    ctx = Context()
     league_id = request.args.get('league', None)
     
     if not league_id:
         return redirect(url_for('league_select'))
 
+    persistence.clear(RETAINED_KEYS, ctx._persist_key)
+
     leagues = ctx.get_leagues(SPORT, YEAR)
     league = next(l for l in leagues if l.id == league_id)
 
-    get_week = int(request.args.get('week', 0))
+    for team in league.standings():
+        print(vars(team))
+
+    get_week = int(request.args.get('week', 1)) - 1
     week = league.weeks()[get_week]
 
     # for matchup in week.matchups:
     #     print(vars(matchup))
 
 
-    return render_template('scoreboard.html', league=league, week=get_week + 1, matchups=week.matchups)
+    return render_template('scoreboard.html', week=get_week + 1, matchups=week.matchups)
 
 
 @app.route("/setup/<sport>/")

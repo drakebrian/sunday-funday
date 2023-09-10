@@ -2,20 +2,34 @@
 {% block title %}Scoreboard{% endblock %} 
 {% block content %}
 
-<h1>{{ league.name }}&mdash;Week {{ week }}</h1>
-<ul>
-	{% for matchup in matchups %}
-		<li>
-			{% for team in matchup.teams.team %}
 
-				<h2>{{ team.name }}</h2>
-				<h3>{{ team.managers.manager.nickname }}</h3>
+<div class="col1">
+	<h1>Week {{ week }} Matchups</h1>
+	<ul class="scoreboard">
+		{% for matchup in matchups %}
+			<li>
+				{% for team in matchup.teams.team %}
+					<div class="team">
+						{% set width = team.win_probability * 100 %}
+						<span class="probability-text">{{ width|round|int }}%</span>
+						<span class="probability" style="width: {{ width|round|int }}%;"></span>
+						<div class="team-primary">
+							<img class="team-logo" src="{{ team.team_logos.team_logo.url }}">
+							<h2>{{ "%.2f"|format(team.team_points.total|float) }}</h2>
+							<h3>{{ "%.2f"|format(team.team_projected_points.total|float) }}</h3>
 
-				<img src="{{ team.team_logos.team_logo.url }}">
+						</div>
+						<div class="team-secondary">
+							<h2>{{ team.name }}</h2>
+							<h3>{{ team.managers.manager.nickname }}</h3>
 
-			{% endfor %}
-		</li>
-	{% endfor %}
-</ul>
+						</div>
+					</div>
+				{% endfor %}
+			</li>
+		{% endfor %}
+	</ul>
+</div>
+
 
 {% endblock %}
