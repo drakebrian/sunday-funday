@@ -8,29 +8,36 @@ app = Flask(__name__, static_url_path='', static_folder='static')
 YEAR = 2023
 SPORT = 'nfl'
 RETAINED_KEYS = ["auth"]
+ctx = Context()
 
 @app.route('/setup')
 def league_select():
-    ctx = Context()
+    # ctx = Context()
     leagues = ctx.get_leagues(SPORT, YEAR)
 
     return render_template('setup.html', leagues=leagues)
 
 @app.route('/scoreboard')
 def scoreboard():
-    ctx = Context()
+    # ctx = Context()
     league_id = request.args.get('league', None)
     
     if not league_id:
         return redirect(url_for('league_select'))
 
-    persistence.clear(RETAINED_KEYS, ctx._persist_key)
+    # persistence.clear(RETAINED_KEYS, ctx._persist_key)
 
     leagues = ctx.get_leagues(SPORT, YEAR)
     league = next(l for l in leagues if l.id == league_id)
 
+    standings = {}
+
     for team in league.standings():
-        print(vars(team))
+        team_standings = team.team_standings.outcome_totals
+        standings[team.team_id] = team_standings
+
+        # print(team.team_standings)
+        # print(vars(team))
 
     get_week = int(request.args.get('week', 1)) - 1
     week = league.weeks()[get_week]
@@ -39,7 +46,7 @@ def scoreboard():
     #     print(vars(matchup))
 
 
-    return render_template('scoreboard.html', week=get_week + 1, matchups=week.matchups)
+    return render_template('scoreboard.html', week=get_week + 1, matchups=week.matchups, standings=standings, enumerate=enumerate)
 
 
 @app.route("/setup/<sport>/")

@@ -8,20 +8,55 @@
 	<ul class="scoreboard">
 		{% for matchup in matchups %}
 			<li>
-				{% for team in matchup.teams.team %}
-					<div class="team">
-						{% set width = team.win_probability * 100 %}
+				{% for i, team in enumerate(matchup.teams.team) %}
+					{% set width = team.win_probability * 100 %}
+					<div class="team{% if width|string == '100' %} game-won{% elif width > 90 %} endzone-visible{% elif width|string == '0' %} game-lost{% endif %}">
 						<span class="probability-text">{{ width|round|int }}%</span>
-						<span class="probability" style="width: {{ width|round|int }}%;"></span>
+						<span 
+							class="probability" 
+							style="width: {{ width|round|int }}%;"
+						>
+							{% for n in range(11)|reverse %}
+								{% if not n % 2 %}
+									{% if n * 5 == 0 %}
+										<span class="endzone">
+											<img class="endzone-logo" src="{{ team.team_logos.team_logo.url }}">
+										</span>
+									{% elif n * 5 != 50 %}
+										<span>
+											{{ n * 5 }} 
+											{% if i == 0 %}
+												&#9664;
+											{% else %}
+												&#9654;
+											{% endif %}
+										</span>
+									{% else %}
+										<span></span>
+									{% endif %}
+								{% else %}
+									<span></span>
+								{% endif %}									
+							{% endfor %}
+						</span>
 						<div class="team-primary">
-							<img class="team-logo" src="{{ team.team_logos.team_logo.url }}">
 							<h2>{{ "%.2f"|format(team.team_points.total|float) }}</h2>
 							<h3>{{ "%.2f"|format(team.team_projected_points.total|float) }}</h3>
-
 						</div>
 						<div class="team-secondary">
+							<img class="team-logo" src="{{ team.team_logos.team_logo.url }}">
+							{% for team_id, standing in standings.items() %}
+								{% if team_id == team.team_id %}
+									<span class="team-record">{{ standing.wins }}-{{ standing.losses }}-{{ standing.ties }}</span>
+									<!-- <span>{{ standing.percentage }}</span> -->
+								{% endif %}
+							{% endfor%}
 							<h2>{{ team.name }}</h2>
 							<h3>{{ team.managers.manager.nickname }}</h3>
+
+							
+
+							
 
 						</div>
 					</div>
@@ -30,6 +65,8 @@
 		{% endfor %}
 	</ul>
 </div>
+
+
 
 
 {% endblock %}
