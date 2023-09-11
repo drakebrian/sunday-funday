@@ -57,7 +57,7 @@ ul.scoreboard li>div.game-lost div.team-primary h2 {color: darkred;}
 
 ul.scoreboard li>div span.probability-text {
 	position: absolute;
-	top: -20px; right: 2px;
+	top: -20px; right: 5px;
 	font-size: 16px; font-weight: 600;
 	color: #444;
 	z-index: 2;
@@ -90,8 +90,18 @@ ul.scoreboard li>div:first-of-type span.probability {
 	overflow: hidden;
 }
 ul.scoreboard li>div.game-won span.probability {background: rgba(60, 134, 0, 0.85);}
-ul.scoreboard li>div.game-won span.probability-text {color: #fff;}
-ul.scoreboard li>div.endzone-visible span.probability-text {color: #fff;}
+ul.scoreboard li>div.game-won span.probability-text, ul.scoreboard li>div.endzone-visible span.probability-text {
+	color: #fff;
+	text-shadow:
+		-1px -1px 0 #444,
+		 0   -1px 0 #444,
+		 1px -1px 0 #444,
+		 1px  0   0 #444,
+		 1px  1px 0 #444,
+		 0    1px 0 #444,
+		-1px  1px 0 #444,
+		-1px  0   0 #444;
+	}
 
 ul.scoreboard li>div span.probability span {
 	display: inline-block;
@@ -117,7 +127,7 @@ ul.scoreboard li>div span.probability span.endzone {
 	transform: rotate(270deg);
 	height: 10vw;
 	width: 10vw;
-	opacity: 0.4;
+/*	opacity: 0.4;*/
 	filter: grayscale(0.20);
 /*	transform-origin: bottom left;*/
 }
