@@ -5,7 +5,7 @@ import yahoofantasy.util.persistence as persistence
 
 app = Flask(__name__, static_url_path='', static_folder='static')
 
-YEAR = 2024
+YEAR = 2023
 SPORT = 'nfl'
 RETAINED_KEYS = ["auth"]
 ctx = Context()
