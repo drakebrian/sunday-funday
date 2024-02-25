@@ -12,6 +12,8 @@ ctx = Context()
 
 @app.route('/setup')
 def league_select():
+    # TODO: Make a better looking page
+
     # ctx = Context()
     leagues = ctx.get_leagues(SPORT, YEAR)
 
