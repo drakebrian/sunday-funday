@@ -36,8 +36,8 @@ def scoreboard():
         team_standings = team.team_standings.outcome_totals
         standings[team.team_id] = team_standings
 
-        # print(team.team_standings)
-        # print(vars(team))
+        print(team.team_standings)
+        print(vars(team))
 
     get_week = int(request.args.get('week', 1)) - 1
     week = league.weeks()[get_week]
