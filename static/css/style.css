@@ -125,8 +125,8 @@ ul.scoreboard li>div span.probability span.endzone {
 }
 .endzone-logo {
 	transform: rotate(270deg);
-	height: 10vw;
-	width: 10vw;
+	height: 15vw;
+	width: 15vw;
 /*	opacity: 0.4;*/
 	filter: grayscale(0.20);
 /*	transform-origin: bottom left;*/
